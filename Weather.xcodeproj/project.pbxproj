@@ -101,8 +101,9 @@
 			children = (
 				512F1B8F2453A59900D37F3A /* AppDelegate.swift */,
 				512F1B912453A59900D37F3A /* SceneDelegate.swift */,
-				512F1B932453A59900D37F3A /* ViewController.swift */,
-				512F1B952453A59900D37F3A /* Main.storyboard */,
+				512F1BC02453A66500D37F3A /* Model */,
+				512F1BBF2453A66200D37F3A /* View */,
+				512F1BC12453A67100D37F3A /* Controller */,
 				512F1B982453A59E00D37F3A /* Assets.xcassets */,
 				512F1B9A2453A59E00D37F3A /* LaunchScreen.storyboard */,
 				512F1B9D2453A59E00D37F3A /* Info.plist */,
@@ -126,6 +127,29 @@
 				512F1BB32453A59E00D37F3A /* Info.plist */,
 			);
 			path = WeatherUITests;
+			sourceTree = "<group>";
+		};
+		512F1BBF2453A66200D37F3A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				512F1B952453A59900D37F3A /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		512F1BC02453A66500D37F3A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		512F1BC12453A67100D37F3A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				512F1B932453A59900D37F3A /* ViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
