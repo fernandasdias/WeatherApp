@@ -8,17 +8,17 @@
 
 import Foundation
 
-class WeatherData: Decodable {
+class WeatherData: Codable    {
     let name: String
     let main: Main
     let weather:[Weather]
 }
 
-class Main:Decodable {
+class Main:Codable {
     let temp: Double
 }
 
-class Weather: Decodable {
+class Weather: Codable {
     let id: Int
     let main: String
     let description: String
