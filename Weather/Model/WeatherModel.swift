@@ -14,11 +14,22 @@ class WeatherModel {
     let temperature: Double
     var conditionName: String = ""
     var temperatureString: String = ""
-    init(conditionId: Int, cityName: String, temperature: Double){
+    var main: String
+    var temp_min: Double
+    var temp_max: Double
+    var minTemperatureString: String
+    var maxTemperatureString: String
+    
+    init(conditionId: Int, cityName: String, temperature: Double, main: String, temp_min: Double, temp_max:Double){
     
         self.conditionId = conditionId
         self.cityName = cityName
         self.temperature = temperature
+        self.main = main
+        self.temp_min = temp_min
+        self.temp_max = temp_max
+        self.minTemperatureString = String(format: "%.1f", self.temp_min)
+        self.maxTemperatureString = String(format: "%.1f", self.temp_max)
         self.conditionName = self.getConditionName(weatherId: conditionId)
         self.temperatureString = String(format: "%.1f", self.temperature)
     }

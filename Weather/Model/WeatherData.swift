@@ -16,6 +16,8 @@ class WeatherData: Codable    {
 
 class Main:Codable {
     let temp: Double
+    let temp_min: Double
+    let temp_max: Double
 }
 
 class Weather: Codable {

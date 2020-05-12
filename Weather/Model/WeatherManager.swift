@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 protocol WeatherManagerDelegate {
     func didUpdateWeather(_ weatherManager: WeatherManager,   weather: WeatherModel)
@@ -18,8 +19,20 @@ class WeatherManager {
     
     var delegate: WeatherManagerDelegate?
     
+    fileprivate func FormatCityWithTwoWords (_ cityName: String) -> String {
+        return (cityName as NSString).replacingOccurrences(of: " ", with: "+")
+    }
+    
     func fetchWeather(cityName: String) {
-        let urlString = "\(weatherURL)&q=\(cityName)"
+        let cityNameFormatted = FormatCityWithTwoWords (cityName)
+        
+        let urlString = "\(weatherURL)&q=\(cityNameFormatted)"
+        performRequest(with: urlString)
+    }
+    
+    func fetchWeather(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
+        
+        let urlString = "\(weatherURL)&lat=\(latitude)&lon=\(longitude)"
         performRequest(with: urlString)
     }
     
@@ -57,8 +70,11 @@ class WeatherManager {
             let id = decodedData.weather[0].id
             //let description = decodedData.weather[0].description
             let name = decodedData.name
+            let main = decodedData.weather[0].main
+            let temp_min = decodedData.main.temp_min
+            let temp_max = decodedData.main.temp_max
+            let weather = WeatherModel(conditionId: id, cityName: name, temperature: temp, main: main, temp_min: temp_min, temp_max: temp_max)
             
-            let weather = WeatherModel(conditionId: id, cityName: name, temperature: temp)
          return weather
         } catch {
             delegate?.didFailWithError(error: error)

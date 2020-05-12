@@ -15,6 +15,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var conditionImageView: UIImageView!
     @IBOutlet weak var weatherStatusLabel: UILabel!
+    @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var maxTemperatureLabel: UILabel!
+    @IBOutlet weak var minTemperatureLabel: UILabel!
     
     var weatherManager = WeatherManager()
     let locationManager = CLLocationManager()
@@ -22,10 +26,33 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
         
         weatherManager.delegate = self
         searchTextField.delegate = self
+    }
+    @IBAction func locationButtonPressed(_ sender: Any) {
+        locationManager.requestLocation()
+    }
+}
+
+
+//MARK: - CLLocationManager Delegate
+extension ViewController: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            locationManager.stopUpdatingLocation()
+            let lat = location.coordinate.latitude
+            let lon = location.coordinate.longitude
+            weatherManager.fetchWeather(latitude: lat, longitude: lon)
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
     }
 }
 
@@ -69,7 +96,11 @@ extension ViewController: WeatherManagerDelegate
               let grausString = "ºC"
               self.temperatureLabel.text = weather.temperatureString + grausString
               self.conditionImageView.image = UIImage(systemName: weather.conditionName)
-         
+              self.cityLabel.text = weather.cityName
+              self.statusLabel.text
+                = weather.main
+            self.minTemperatureLabel.text = weather.minTemperatureString
+            self.maxTemperatureLabel.text = weather.maxTemperatureString
           }
       }
       
